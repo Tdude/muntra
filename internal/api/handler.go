@@ -204,6 +204,38 @@ var breakdownFields = map[string]string{
 	"device":   "ua_device",
 }
 
+const (
+	defaultBreakdownLimit = 100
+	maxBreakdownLimit     = 10000
+)
+
+// parseBreakdownLimit parses the "limit" query param, falling back to
+// defaultBreakdownLimit for anything empty, non-numeric, non-positive, or
+// above maxBreakdownLimit.
+//
+// Learned the hard way in production: a caller that wants a complete
+// per-URL view-count map (e.g. to build a "reads" badge per page) has to
+// ask for a limit well above the default — say 5000, to cover every URL on
+// a site. An earlier version of this handler capped accepted values at 500,
+// so that request was silently rejected and fell back to the 100-item
+// default. The query itself is ORDER BY y DESC LIMIT N — a top-N
+// leaderboard — so anything below the cutoff wasn't undercounted, it was
+// simply missing from the response: a 200 with a truncated array, no error.
+// Any URL outside the top 100 by traffic (a brand-new page, or one that
+// just isn't a top performer) silently reported as zero. If you're building
+// a "give me every URL" consumer on top of /api/breakdown, make sure your
+// requested limit is actually below this cap, or raise the cap to match.
+func parseBreakdownLimit(raw string) int {
+	if raw == "" {
+		return defaultBreakdownLimit
+	}
+	n, err := strconv.Atoi(raw)
+	if err != nil || n <= 0 || n > maxBreakdownLimit {
+		return defaultBreakdownLimit
+	}
+	return n
+}
+
 func (h *Handler) Breakdown(w http.ResponseWriter, r *http.Request) {
 	p, err := h.parseRange(r)
 	if err != nil {
@@ -215,12 +247,7 @@ func (h *Handler) Breakdown(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "unknown 'by' value", http.StatusBadRequest)
 		return
 	}
-	limit := 100
-	if l := r.URL.Query().Get("limit"); l != "" {
-		if n, err := strconv.Atoi(l); err == nil && n > 0 && n <= 500 {
-			limit = n
-		}
-	}
+	limit := parseBreakdownLimit(r.URL.Query().Get("limit"))
 	// `col` is whitelisted via breakdownFields; safe to interpolate.
 	q := fmt.Sprintf(`
 		SELECT %s AS x, COUNT(*) AS y
