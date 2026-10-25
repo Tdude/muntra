@@ -4,7 +4,7 @@ Lightweight, GDPR-friendly web analytics. **Single Go binary, ~22 MB image, ~50 
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
-[Article here](https://idunworks.com/blog/building-munin).
+[Article here](https://idunworks.com/blog/building-muntra).
 
 ## Why
 
