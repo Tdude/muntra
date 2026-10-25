@@ -8,7 +8,7 @@ Lightweight, GDPR-friendly web analytics. **Single Go binary, ~22 MB image, ~50 
 
 ## Why
 
-Umami is a great product but it's a Next.js app that drifts to 1 GB RAM over a few days. Most people solve it by restarting it. That is an architectural decision I can't live with. If you have a small VPS hosting a handful of sites, that's most of your memory budget for analytics that should be a rounding error. I have enough challenges with my own memory. Don't need the same on my servers!
+Umami is arguably a great product but it's a Next.js app that drifts to 1 GB RAM over a few days. Most people solve it by restarting it. That is an architectural decision I can't live with. If you have a small VPS hosting a handful of sites, that's most of your memory budget for analytics that should be a rounding error. I have enough challenges with my own memory. Don't need the same on my servers!
 
 Muntra is:
 
