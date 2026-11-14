@@ -1,6 +1,9 @@
 # Muntra
 
-Lightweight, GDPR-friendly web analytics. **Single Go binary, ~22 MB image, ~50 MB RSS regardless of traffic.** Built as a drop-in replacement for Umami without the Next.js + Prisma memory creep.
+The sales-pitch: This tracker on your site is ~1 KB minified, async, no dependencies! 
+Lightweight, GDPR-friendly web analytics. Nothing "phoning home". 
+**Single Go binary, ~22 MB image, ~50 MB RSS regardless of traffic.** 
+Built as a drop-in, set-and-forget replacement for Umami without the Next.js + Prisma memory creep.
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
