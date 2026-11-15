@@ -7,7 +7,7 @@ Built as a drop-in, set-and-forget replacement for Umami without the Next.js + P
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
-[Article here](https://idunworks.com/blog/building-muntra).
+[Read about it and all my mistakes here](https://idunworks.com/blog/building-muntra).
 
 ## Why
 
